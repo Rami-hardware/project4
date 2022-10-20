@@ -2,12 +2,16 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-
+const WorkboxPlugin = require('workbox-webpack-plugin');
+const LinkTypePlugin = require('html-webpack-link-type-plugin').HtmlWebpackLinkTypePlugin;
 module.exports = {
     entry: './src/client/index.js',
     output: {
         libraryTarget: 'var',
-        library:"User"
+        library:"Client"
+    },
+    devServer: {
+        injectClient: false
     },
     mode: 'development',
     devtool: 'source-map',
@@ -30,6 +34,9 @@ module.exports = {
             template: "./src/client/views/index.html",
             filename: "./index.html",
         }),
+        new LinkTypePlugin({
+            '**/*.css' : 'text/css'
+        }),
         new CleanWebpackPlugin({
             // Simulate the removal of files
             dry: true,
@@ -38,6 +45,7 @@ module.exports = {
             // Automatically remove all unused webpack assets on rebuild
             cleanStaleWebpackAssets: true,
             protectWebpackAssets: false
-        })
+        }),
+        new WorkboxPlugin.GenerateSW()
     ]
 }
