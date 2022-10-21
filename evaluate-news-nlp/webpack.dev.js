@@ -8,7 +8,7 @@ module.exports = {
     entry: './src/client/index.js',
     output: {
         libraryTarget: 'var',
-        library:"Client"
+        library: "Client"
     },
     devServer: {
         injectClient: false
@@ -25,8 +25,8 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
-        }
+                use: ['style-loader', 'css-loader', 'sass-loader']
+            }
         ]
     },
     plugins: [
@@ -35,7 +35,7 @@ module.exports = {
             filename: "./index.html",
         }),
         new LinkTypePlugin({
-            '**/*.css' : 'text/css'
+            '**/*.css': 'text/css'
         }),
         new CleanWebpackPlugin({
             // Simulate the removal of files

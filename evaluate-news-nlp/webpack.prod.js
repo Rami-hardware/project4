@@ -6,31 +6,30 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const LinkTypePlugin = require('html-webpack-link-type-plugin').HtmlWebpackLinkTypePlugin;
 const TerserPlugin = require('terser-webpack-plugin');
-
 module.exports = {
     entry: './src/client/index.js',
     mode: 'production',
     optimization: {
         minimizer: [new TerserPlugin({}), new OptimizeCSSAssetsPlugin({})],
-        },
-        output: {
-            libraryTarget: 'var',
-            library:"Client"
-        },
-        devServer: {
-            injectClient: false
-        },
+    },
+    output: {
+        libraryTarget: 'var',
+        library: "Client"
+    },
+    devServer: {
+        injectClient: false
+    },
     module: {
         rules: [
             {
-                test:/\.js$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
                 loader: "babel-loader"
             },
             {
                 test: /\.scss$/,
-                use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ]
-        }
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+            }
         ]
     },
     plugins: [
@@ -39,7 +38,7 @@ module.exports = {
             filename: "./index.html",
         }),
         new LinkTypePlugin({
-            '**/*.css' : 'text/css'
+            '**/*.css': 'text/css'
         }),
         new WorkboxPlugin.GenerateSW(),
         new MiniCssExtractPlugin({ filename: "[name].css" })
